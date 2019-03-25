@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Proyecto asignado</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td>
+          <% user.projects.each do |project|%>
+            <%= project.name %> <a href="<%= user_users_project_path(user, project) %>" data-method="delete"> <span>X</span> </a>
+          <% end %>
+          <%= form_tag(user_users_projects_path(user)) do %>
+            <%= text_field_tag "name" %>
+          <% end %>
+        </td>
+        <td> <%= link_to 'Show', user %></td>
+        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New User', new_user_path %>
